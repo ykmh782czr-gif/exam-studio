@@ -1,0 +1,82 @@
+[
+  {
+    "title": "Count dataset records",
+    "skill": "Dataset structure"
+  },
+  {
+    "title": "Count dataset columns",
+    "skill": "Dataset structure"
+  },
+  {
+    "title": "Identify missing ZIP codes",
+    "skill": "Data quality"
+  },
+  {
+    "title": "Identify invalid ZIP codes",
+    "skill": "Data quality"
+  },
+  {
+    "title": "Find a constant column",
+    "skill": "Data quality"
+  },
+  {
+    "title": "Find the earliest entry",
+    "skill": "Date analysis"
+  },
+  {
+    "title": "Find the latest entry",
+    "skill": "Date analysis"
+  },
+  {
+    "title": "Count distinct event types",
+    "skill": "Frequency analysis"
+  },
+  {
+    "title": "Find the most common event type",
+    "skill": "Frequency analysis"
+  },
+  {
+    "title": "Find the leading shooting category",
+    "skill": "Filtering and aggregation"
+  },
+  {
+    "title": "Count student film permits",
+    "skill": "Filtering and aggregation"
+  },
+  {
+    "title": "Calculate multiple-board approvals",
+    "skill": "Percentages and filtering"
+  },
+  {
+    "title": "Compare Brooklyn and Manhattan",
+    "skill": "Year and borough comparisons"
+  },
+  {
+    "title": "Find shoots near Broadway",
+    "skill": "Text filtering and percentages"
+  },
+  {
+    "title": "Count foreign applications",
+    "skill": "Date and country filtering"
+  },
+  {
+    "title": "Calculate average permit duration",
+    "skill": "Duration and rounding"
+  },
+  {
+    "title": "Find the shortest shoot",
+    "skill": "Duration analysis"
+  },
+  {
+    "title": "Calculate average lead time",
+    "skill": "Lead time and rounding"
+  },
+  {
+    "title": "Find the most common start day",
+    "skill": "Weekday analysis"
+  },
+  {
+    "title": "Find shoots overlapping Friday",
+    "skill": "Date intervals and percentages"
+  }
+]

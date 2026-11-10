@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exam Studio · Practice</title>
+  <meta name="description" content="Data Analytics in Accounting practice, based on your course materials.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="#home"><span class="brand-icon" aria-hidden="true">E</span> Exam Studio</a><span class="course">Data Analytics in Accounting</span><span id="preview-label" class="stage">Local preview</span></header>
+  <main>
+    <section id="home-view" aria-labelledby="home-heading">
+      <div class="intro"><div><p class="eyebrow">DATA ANALYTICS IN ACCOUNTING</p><h1 id="home-heading" tabindex="-1">What would you like to practise?</h1><p class="lede">Choose a section to browse questions or start a timed exam.</p></div></div>
+      <div class="route-cards">
+        <a class="route-card" href="#manipulation"><span class="eyebrow">8-MINUTE EXAMS</span><strong>Data Manipulation</strong><span>Practise Excel and SQL with course datasets.</span><span id="home-manipulation-count"></span></a>
+        <a class="route-card" href="#interpretation"><span class="eyebrow">5-MINUTE EXAMS</span><strong>Data Interpretation</strong><span>Interpret supplied regression models and coefficients.</span><span id="home-interpretation-count"></span></a>
+        <a class="route-card route-combined" href="#combined"><span class="eyebrow">13-MINUTE EXAMS</span><strong>Combined</strong><span>Practise both sections in one timed exam.</span></a>
+      </div>
+    </section>
+    <section id="section-view" hidden aria-labelledby="section-heading">
+      <nav class="section-nav" aria-label="Practice navigation"><a href="#home">← All sections</a><a id="section-back" hidden></a></nav>
+      <div class="intro"><div><p class="eyebrow" id="section-eyebrow"></p><h1 id="section-heading" tabindex="-1"></h1><p class="lede" id="section-lede"></p></div></div>
+      <div id="section-choices" class="route-cards" hidden>
+        <a id="section-questions-link" class="route-card"><strong>Browse questions</strong><span>Work at your own pace with worked solutions and optional AI support.</span></a>
+        <a id="section-exams-link" class="route-card"><strong>Choose an exam</strong><span>Pick a set for practice or an independent timed simulation.</span></a>
+      </div>
+    </section>
+    <section id="timed-sessions" hidden class="timed-sessions" aria-labelledby="sessions-heading">
+      <p class="eyebrow">PRACTICE THE FULL SKILL SET</p><h2 id="sessions-heading">Timed practice &amp; exam simulation</h2>
+      <p class="helper">Teacher’s timing: manipulation 8 minutes · interpretation 5 minutes · combined 13 minutes. The general open question is outside this website’s scope.</p>
+      <div id="session-setup"><form id="session-start-form"><div class="session-options"><div hidden><label for="session-kind">Session</label><select id="session-kind"><option value="combined">Combined · 13 minutes</option><option value="manipulation">Data Manipulation · 8 minutes</option><option value="interpretation">Data Interpretation · 5 minutes</option></select></div><div><label for="session-mode">Mode</label><select id="session-mode"><option value="practice">Practice · AI available</option><option value="simulation">Exam Simulation · no AI until submission</option></select></div></div><div class="session-options" id="session-exam-controls" hidden><div><label for="session-exam">Exam set</label><select id="session-exam"></select></div><div><button id="choose-exam" type="button">Choose one for me</button></div></div><label class="check-label"><input id="session-timed" type="checkbox"> Use the optional timer in Practice Mode</label><p id="session-composition" class="helper"></p><p class="helper">Download and open required files before starting. Importing, if needed, is part of the timed task. These are our curated source-based practice exams, not a reproduction of the teacher’s full bank.</p><div id="session-files" class="session-files"></div><button id="start-session" type="submit">Start session</button></form><button id="show-saved-sessions" type="button">Review saved submissions</button></div>
+      <p id="session-status" class="connection-note" role="status"></p>
+      <div id="session-active" hidden><div class="session-top"><h3 id="session-label"></h3><strong id="session-clock" role="timer" aria-live="off"></strong></div><p id="session-rules" class="helper"></p><nav id="session-questions" class="session-questions" aria-label="Session questions"></nav><article id="session-question" tabindex="-1"><p id="session-q-category" class="eyebrow"></p><h3 id="session-q-title"></h3><p id="session-q-prompt" class="prompt"></p><p id="session-q-scope" class="scope"></p><div id="session-model"></div><label for="session-answer">Your answer</label><textarea id="session-answer" maxlength="4000" rows="3"></textarea><label for="session-method">Formula, SQL or explanation</label><textarea id="session-method" maxlength="4000" rows="4"></textarea><label for="session-output">Output or observations (optional)</label><textarea id="session-output" maxlength="4000" rows="2"></textarea><button id="session-revision" type="button" aria-pressed="false">Mark for revision</button><button id="session-help" type="button">Discuss my work with AI</button></article><button id="submit-session" class="primary-action" type="button">Submit session for independent review</button><div id="session-submit-confirm" class="submit-confirm" hidden><p>Submit now? Your answers will become read-only for independent review.</p><button id="confirm-session-submit" type="button">Confirm submission</button><button id="cancel-session-submit" type="button">Keep working</button></div></div>
+      <div id="session-review" hidden><h3>Review your submitted answers</h3><p id="review-summary" class="helper"></p><p class="helper">Read your own answers first. No score or AI feedback is generated automatically. Request feedback only when you choose.</p><label for="review-attempt">Saved attempt</label><select id="review-attempt"></select><nav id="review-questions" class="session-questions" aria-label="Review questions"></nav><article id="review-question"><h3 id="review-title"></h3><p id="review-prompt"></p><div id="review-model"></div><pre id="review-answer"></pre><button id="show-review-reference" type="button" hidden>Show solution</button><p id="review-reference-status" class="helper" role="status"></p><div id="review-reference"></div><button id="review-revision" type="button" aria-pressed="false">Mark for revision</button><button id="review-ai" type="button">Ask the tutor for feedback</button></article><button id="new-session" type="button">Choose another session</button></div>
+    </section>
+    <div id="individual-practice" hidden>
+
+    <section id="question-catalogue" class="catalogue" aria-labelledby="catalogue-heading"><div class="section-intro"><div><p class="eyebrow">PRACTICE AT YOUR OWN PACE</p><h2 id="catalogue-heading">Choose a question</h2></div><button id="reset-filters" type="button" hidden>Reset filters</button></div>
+      <div class="catalogue-filters"><div class="search-field"><label for="question-search">Search ID or keywords</label><input id="question-search" type="search" placeholder="Try ZIP, invoices or a question ID" autocomplete="off"></div></div><details id="question-filters" class="question-filters"><summary>More filters</summary><div class="catalogue-filters"><div><label for="tool-filter">Tool</label><select id="tool-filter"><option value="">All tools</option><option>Excel</option><option>SQL</option><option>Regression</option></select></div><div><label for="topic-filter">Topic or skill</label><select id="topic-filter"><option value="">All topics</option></select></div><div hidden><label for="category-filter">Question type</label><select id="category-filter"><option value="">All types</option><option>Data Manipulation</option><option>Data Interpretation</option></select></div><label class="revision-filter"><input id="revision-only" type="checkbox"> Marked for revision</label></div></details>
+      <p id="catalogue-count" class="helper" role="status"></p><div id="catalogue-results" class="catalogue-results"></div><nav class="catalogue-pagination" aria-label="Catalogue pages"><button id="page-previous" type="button">Previous page</button><button id="page-next" type="button">Next page</button><details class="catalogue-page-jump"><summary>Jump to a page</summary><div id="page-numbers" class="page-numbers"></div><form id="page-jump-form"><label for="page-jump">Go to page</label><input id="page-jump" type="number" min="1" step="1" required><button type="submit">Go</button></form></details></nav><p id="page-error" class="helper" role="status"></p>
+    </section>
+    <details id="practice-progress-panel" class="practice-progress"><summary>My practice sets and progress</summary><div class="section-intro"><div><p class="eyebrow">YOUR PRACTICE</p><h2 id="practice-heading">Pick up where you left off.</h2></div><p>Completion records your own progress, not correctness.<br>Revision markers are independent.</p></div><div id="practice-sets" class="practice-sets"></div><p class="helper">These source-based practice sets are not verified exam simulations. You can update their status yourself.</p><p id="progress-status" class="helper" role="status"></p></details>
+    <div id="question-detail" hidden>
+    <section class="question-navigation" aria-label="Question navigation"><div hidden><label for="question-select">Choose a question from the results</label><select id="question-select"></select></div><div class="step-buttons"><button id="previous" type="button" aria-label="Previous question">← Previous</button><span id="position"></span><button id="next" type="button" aria-label="Next question">Next →</button></div></section><p id="outside-filters" class="helper"></p>
+    <div class="workspace">
+      <article class="question-card" aria-labelledby="question-title">
+        <div class="card-heading"><span id="question-id" class="question-id"></span><span id="question-category" class="pill">Data Manipulation</span><button id="revision-toggle" type="button" aria-pressed="false">☆ Mark for revision</button></div>
+        <div id="question-region" tabindex="-1"><p class="eyebrow" id="skill"></p><h2 id="question-title"></h2><p id="prompt" class="prompt"></p><aside class="scope"><strong>Which records should I use?</strong><p id="scope"></p></aside></div>
+        <section id="question-dataset" class="dataset" aria-labelledby="dataset-title"><div><h3 id="dataset-title">Your dataset</h3><p id="dataset-description">NYC Film Permits · Excel workbook<br>Original course dataset · unchanged</p></div><a id="dataset-download" class="download" href="files/NYC_Film_Permits.xlsx" download>Download .xlsx <span aria-hidden="true">↓</span></a><div id="additional-downloads"></div></section>
+        <div id="question-model"></div><section class="work" aria-labelledby="work-title"><h3 id="work-title">Your work</h3><p class="helper">The assignment asks for your method as well as your final answer.</p><label for="answer">Final answer</label><textarea id="answer" rows="2" placeholder="Enter your answer, including units where relevant."></textarea><label for="method">Formula or method</label><textarea id="method" class="monospace" rows="4" placeholder="Paste your Excel formula or explain your PivotTable steps."></textarea><label for="output">Output or observations <span class="optional">(optional)</span></label><textarea id="output" rows="2" placeholder="Describe the result you obtained or anything you want to check."></textarea><p class="draft-note" id="draft-status" role="status">Answers and chats are saved in this browser. Clearing browser data removes them.</p></section>
+        <button id="show-reference" type="button" hidden>Show solution</button><p id="reference-status" class="helper" role="status"></p><div id="reference-solution"></div><details class="source"><summary>Course source and instructions</summary><p id="source-location"></p><p id="source-instructions">Use Excel formulas and PivotTables, and show how you obtained your answer. The source refers to a CSV; this preview provides the original Excel dataset available in your materials.</p><p>Adapted practice exercises identify the source case and section.</p></details>
+      </article>
+      <aside class="tutor-card" aria-labelledby="tutor-title">
+        <div class="tutor-heading"><span class="tutor-symbol" aria-hidden="true">✳</span><div><h2 id="tutor-title">Your study partner</h2><p id="connection-state">Checking tutor connection…</p></div></div>
+        <details id="connection-settings" open><summary>Connect Gemini locally</summary>
+          <form id="connection-form"><p class="helper">Your key stays in the local server’s memory, not website files or browser storage. It is sent only to Google for authentication. Stopping the server forgets it.</p>
+          <label for="gemini-key">Gemini API key</label><input id="gemini-key" type="password" autocomplete="off" spellcheck="false" required placeholder="Paste your key here, not in chat">
+          <label for="gemini-model">Model</label><input id="gemini-model" value="gemini-3.5-flash-lite" required spellcheck="false">
+          <p class="helper">Model access and free quotas depend on your project. No paid fallback is used.</p>
+          <label class="check-label"><input id="free-project" type="checkbox" required> My selected Google project has billing disabled.</label>
+          <button id="connect" type="submit">Connect Gemini</button><button id="disconnect" type="button" hidden>Disconnect key</button>
+          </form><p id="setup-status" role="status" class="helper"></p>
+        </details>
+        <div class="tutor-context"><span>Current question</span><strong id="tutor-context"></strong></div>
+        <div id="messages" class="messages" role="log" aria-label="Conversation for current question" aria-live="polite"></div>
+        <p id="tutor-status" class="connection-note" role="status"></p>
+        <form id="message-form"><label for="tutor-message">Ask or follow up</label><textarea id="tutor-message" maxlength="8000" placeholder="Share what you tried or reply to the tutor’s question." required></textarea>
+        <details id="feedback-preview" hidden><summary>Submitted work attached to this request</summary><pre id="feedback-preview-text"></pre></details><label class="check-label"><input id="share-work" type="checkbox"> Include my current answer, method and output</label>
+        <button id="send" class="send" type="submit" disabled>Send message ↑</button></form>
+        <button id="clear-chat" class="clear-chat" type="button">Clear this question’s conversation</button>
+        <p id="verification-note" class="verification-note">Messages, question context and any work you choose to include are sent to Google Gemini. Replies review reasoning; no Excel formulas or SQL are executed. Chats stay in this browser and do not sync between devices.</p>
+      </aside>
+    </div>
+    </div>
+    </div>
+    <footer>Built around your course materials. <span>Practice progress is separate from correctness.</span></footer>
+  </main>
+  <script src="questions.js"></script><script src="app.js"></script><script src="sessions.js"></script>
+</body>
+</html>

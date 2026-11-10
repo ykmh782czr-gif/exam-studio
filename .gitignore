@@ -1,0 +1,16 @@
+__pycache__/
+.DS_Store
+.env*
+.dev.vars*
+.wrangler/
+node_modules/
+*.generated.json
+assets.generated/
+exam-studio-preview/questions.js
+exam-studio-preview/files/
+exam-studio-local/dataset-contexts.json
+exam-studio-local/reference-solutions.json
+exam-studio-local/restaurant-variants.json
+exam-studio-discovery/
+
+.venv/
