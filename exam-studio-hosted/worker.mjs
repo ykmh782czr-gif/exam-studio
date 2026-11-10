@@ -5,6 +5,7 @@ import { MODEL, tutorReply } from './tutor.mjs';
 
 const attemptPath = '/api/attempt/';
 const fields = ['answer', 'method', 'output'];
+const publicPages = new Set(['/', '/index.html', '/style.css', '/app.js', '/sessions.js', '/questions.js']);
 const oneDay = 86400;
 const response = (data, status=200) => Response.json(data, { status, headers: { 'Cache-Control': 'no-store' } });
 const error = (message, status) => response({ error: message }, status);
@@ -161,21 +162,26 @@ async function canAccess(request, password) {
 
 export default {
   async fetch(request, env) {
-    if (!env.PREVIEW_PASSWORD) return error('Private preview is not configured.', 503);
-    if (!(await canAccess(request, env.PREVIEW_PASSWORD))) {
+    const publicSite = env.PUBLIC_SITE === 'true';
+    if (!publicSite && !env.PREVIEW_PASSWORD) return error('Private preview is not configured.', 503);
+    if (!publicSite && !(await canAccess(request, env.PREVIEW_PASSWORD))) {
       return new Response('Private Exam Studio preview.', {
         status: 401, headers: { 'WWW-Authenticate': 'Basic realm="Exam Studio Preview"', 'Cache-Control': 'no-store' },
       });
     }
     const url = new URL(request.url);
-    if (url.pathname.startsWith('/_dataset_parts/')) return error('Not found.', 404);
+    if (url.pathname.startsWith('/_dataset_parts/') || (publicSite && url.pathname.startsWith('/files/'))) {
+      return error('This file is available in the course materials.', 404);
+    }
     if (!url.pathname.startsWith('/api/')) {
+      if (publicSite && !publicPages.has(url.pathname)) return error('Not found.', 404);
       return splitDownload(request, env.ASSETS, downloads) ?? env.ASSETS.fetch(request);
     }
     const sessionId = request.headers.get('Cookie')?.match(/(?:^|;\s*)exam_session=([a-f0-9-]{36})(?:;|$)/)?.[1];
     if (url.pathname === '/api/status' && request.method === 'GET') {
       const token = sessionId ?? crypto.randomUUID();
-      const status = response({ configured: !!env.AI, model: MODEL, token, exams: content.exams, provider: 'cloudflare' });
+      const status = response({ configured: !!env.AI, model: MODEL, token, exams: content.exams,
+        provider: 'cloudflare', public_site: publicSite, course_files: publicSite ? content.courseFiles : undefined });
       if (!sessionId) status.headers.append('Set-Cookie', 'exam_session=' + token + '; Path=/; Secure; HttpOnly; SameSite=Strict');
       return status;
     }

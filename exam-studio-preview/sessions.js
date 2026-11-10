@@ -105,7 +105,9 @@ function updateComposition(){
   byId('session-composition').textContent=kind==='interpretation'?'Four regression-output questions, each with its own model.':kind==='manipulation'?'Six questions: three Excel tasks and three SQL tasks.':'Ten questions: six Excel and SQL tasks followed by four regression-output questions.';
   const files=byId('session-files');files.replaceChildren();
   const selectedFiles=exams.find(exam=>exam.id===picker.value)?.files||['NYC_Film_Permits.xlsx','songs.db'];
-  if(kind!=='interpretation')for(const filename of selectedFiles){if(!Object.hasOwn(examFiles,filename))continue;const link=element('a',examFiles[filename],'download');link.href='files/'+filename;link.download='';files.append(link);}
+  if(kind!=='interpretation'&&connection.public_site){
+    files.append(element('p','Open from your course materials: '+selectedFiles.map(name=>connection.course_files?.[name]||name).join(' and '),'helper'));
+  }else if(kind!=='interpretation')for(const filename of selectedFiles){if(!Object.hasOwn(examFiles,filename))continue;const link=element('a',examFiles[filename],'download');link.href='files/'+filename;link.download='';files.append(link);}
   else files.append(element('p','All model output is supplied on screen; no dataset download is required.','helper'));
 }
 function applySessionResult(result,replaceAnswers=true){

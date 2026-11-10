@@ -10,6 +10,7 @@ sys.path.insert(0, str(HERE.parent / 'exam-studio-local'))
 from server import QUESTIONS, make_payload
 from attempts import DURATION, exam_catalogue, MANIPULATION_EXAMS, INTERPRETATION_EXAMS
 from reference_library import get_reference
+from excel_cases import EXCEL_CASE_FILES
 
 
 def main():
@@ -36,6 +37,7 @@ def main():
             assert all(question_id in QUESTIONS for question_id in ids)
             question_ids[kind][exam_id] = ids
     content = dict(contexts=contexts, exams=exams, durations=DURATION, examQuestions=question_ids,
+                   courseFiles=EXCEL_CASE_FILES,
                    questions=QUESTIONS, references={key: get_reference(q) for key, q in QUESTIONS.items()})
     (HERE / 'content.generated.json').write_text(
         json.dumps(content, ensure_ascii=False, separators=(',', ':')) + '\n')

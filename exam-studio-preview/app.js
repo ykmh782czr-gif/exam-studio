@@ -268,11 +268,17 @@ function showQuestion(index, moveFocus = false, remember = true) {
   byId('dataset-description').textContent=`${filename} · ${sql?'SQLite database':filename.endsWith('.csv')?'CSV file':'Excel workbook'}`;
   byId('dataset-download').href='files/'+filename;
   byId('dataset-download').textContent=sql?'Download database ↓':filename.endsWith('.csv')?'Download CSV ↓':'Download workbook ↓';
+  byId('dataset-download').hidden=!!connection.public_site;
   const extraDownloads=byId('additional-downloads');
   extraDownloads.replaceChildren();
-  for(const extra of q.additional_datasets||[]){
-    const link=element('a','Download '+extra,'download');
-    link.href='files/'+extra;link.download='';extraDownloads.append(link);
+  if(connection.public_site){
+    const filenames=[filename,...(q.additional_datasets||[])].map(name=>connection.course_files?.[name]||name);
+    byId('dataset-description').textContent='Open from your course materials: '+filenames.join(' and ');
+  }else{
+    for(const extra of q.additional_datasets||[]){
+      const link=element('a','Download '+extra,'download');
+      link.href='files/'+extra;link.download='';extraDownloads.append(link);
+    }
   }
   byId('method').placeholder=regression?'Explain the prediction or interpretation using the supplied model.':sql?'Paste your SQL query and explain your approach.':'Paste your Excel formula or explain your PivotTable steps.';
   byId('source-instructions').textContent=regression?q.adaptation:sql?`${q.output_requirement} ${q.scope_note||''} Do not modify the original database.`:excelCase?`${q.adaptation} ${q.output_requirement}`:'Use Excel formulas and PivotTables, and show how you obtained your answer. The source refers to a CSV; this preview provides the original Excel dataset available in your materials.';
@@ -437,12 +443,13 @@ persist();
 fetch('/api/status').then(response=>{if(!response.ok)throw new Error();return response.json();}).then(result=>{
   connection=result;
   if(result.provider==='cloudflare'){
-    byId('preview-label').textContent='Hosted preview';
+    byId('preview-label').textContent=result.public_site?'Practice site':'Hosted preview';
     byId('verification-note').textContent='Messages, question context and any work you choose to include are sent to Cloudflare Workers AI for feedback. The tutor reviews reasoning without running Excel or SQL. Chats stay in this browser.';
   }else{
     byId('gemini-model').value=result.model;
     byId('connection-settings').open=!result.configured;
   }
+  if(result.public_site)showQuestion(currentIndex,false,false);
   updateControls();window.dispatchEvent(new Event('tutor-ready'));
 }).catch(()=>{byId('connection-state').textContent='Tutor unavailable';byId('setup-status').textContent='Check the preview connection and reload.';});
 
